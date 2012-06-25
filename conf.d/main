@@ -11,3 +11,13 @@ DOMAIN=www.example.com
 SRC=/usr/local/src
 WEBROOT=/var/www/bambooinvoice
 
+# unpack and fix permissions
+unzip $SRC/bambooinvoice_*.zip -d $(dirname $WEBROOT)
+rm $SRC/bambooinvoice_*.zip
+find $WEBROOT -type f -print0 | xargs -0 chmod 644
+find $WEBROOT -type d -print0 | xargs -0 chmod 755
+chown -R root:root $WEBROOT
+chown -R www-data:www-data $WEBROOT/img/logo
+chown -R www-data:www-data $WEBROOT/invoices_temp
+chown -R www-data:www-data $WEBROOT/bamboo_system_files/application/config
+
