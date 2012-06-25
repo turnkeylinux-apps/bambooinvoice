@@ -21,3 +21,19 @@ chown -R www-data:www-data $WEBROOT/img/logo
 chown -R www-data:www-data $WEBROOT/invoices_temp
 chown -R www-data:www-data $WEBROOT/bamboo_system_files/application/config
 
+# tweak settings
+CONF=$WEBROOT/bamboo_system_files/application/config/config.php
+sed -i "s|^\$config\['base_url.*|\$config['base_url'] = '/';|" $CONF
+sed -i "s|encryption_key.*|encryption_key'] = '$(mcookie)';|" $CONF
+sed -i "s|index_page.*|index_page'] = '';|" $CONF
+sed -i "s|sess_use_database.*|sess_use_database'] = TRUE;|" $CONF
+
+CONF=$WEBROOT/bamboo_system_files/application/config/database.php
+sed -i "s|username'\] =.*|username'] = '$DB_USER';|" $CONF
+sed -i "s|password'\] =.*|password'] = '$DB_PASS';|" $CONF
+sed -i "s|database'\] =.*|database'] = '$DB_NAME';|" $CONF
+sed -i "s|dbprefix'\] =.*|dbprefix'] = '';|" $CONF
+sed -i "s|db_debug'\] =.*|db_debug'] = FALSE;|" $CONF
+
+mv $WEBROOT/possible.htaccess $WEBROOT/.htaccess
+
