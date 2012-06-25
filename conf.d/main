@@ -71,6 +71,10 @@ sed -i "s|^\$config\['base_url.*|\$config['base_url'] = 'http://$DOMAIN/';|" $CO
 # tweak default configuration
 $MYSQL_BATCH --database=$DB_NAME --execute "UPDATE settings SET display_branding=\"n\", new_version_autocheck=\"n\", save_invoices=\"y\" WHERE id=1;"
 
+# secure sensitive files
+chmod 640 $WEBROOT/bamboo_system_files/application/config/config.php
+chmod 640 $WEBROOT/bamboo_system_files/application/config/database.php
+
 # stop services
 /etc/init.d/mysql stop
 /etc/init.d/apache2 stop
