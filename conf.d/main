@@ -64,6 +64,10 @@ $CURL ${URL}/update_bamboo
 rm -f /tmp/cookie
 rm $WEBROOT/bamboo_system_files/application/controllers/install.php
 
+# set default domain
+CONF=$WEBROOT/bamboo_system_files/application/config/config.php
+sed -i "s|^\$config\['base_url.*|\$config['base_url'] = 'http://$DOMAIN/';|" $CONF
+
 # stop services
 /etc/init.d/mysql stop
 /etc/init.d/apache2 stop
