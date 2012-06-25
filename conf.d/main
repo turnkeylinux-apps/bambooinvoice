@@ -68,6 +68,9 @@ rm $WEBROOT/bamboo_system_files/application/controllers/install.php
 CONF=$WEBROOT/bamboo_system_files/application/config/config.php
 sed -i "s|^\$config\['base_url.*|\$config['base_url'] = 'http://$DOMAIN/';|" $CONF
 
+# tweak default configuration
+$MYSQL_BATCH --database=$DB_NAME --execute "UPDATE settings SET display_branding=\"n\", new_version_autocheck=\"n\", save_invoices=\"y\" WHERE id=1;"
+
 # stop services
 /etc/init.d/mysql stop
 /etc/init.d/apache2 stop
