@@ -25,7 +25,8 @@ Credentials *(passwords set at first boot)*
 -------------------------------------------
 
 -  Webmin, SSH, MySQL, phpMyAdmin: username **root**
--  BambooInvoice: default username **admin@example.com**
+-  BambooInvoice: default username is email set at first boot.
+
 
 .. _BambooInvoice: http://bambooinvoice.org/
 .. _TurnKey Core: http://www.turnkeylinux.org/core
