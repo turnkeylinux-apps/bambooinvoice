@@ -19,6 +19,7 @@ from dialog_wrapper import Dialog
 from mysqlconf import MySQL
 from executil import system
 
+
 def usage(s=None):
     if s:
         print >> sys.stderr, "Error:", s
@@ -27,6 +28,7 @@ def usage(s=None):
     sys.exit(1)
 
 DEFAULT_DOMAIN="www.example.com"
+
 
 def main():
     try:
@@ -76,6 +78,8 @@ def main():
 
     if domain == "DEFAULT":
         domain = DEFAULT_DOMAIN
+
+    inithooks_cache.write('APP_DOMAIN', domain)
 
     command = ["php", join(dirname(__file__), 'bambooinvoice_pass.php'), password]
     p = subprocess.Popen(command, stdin=PIPE, stdout=PIPE, shell=False)
