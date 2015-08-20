@@ -10,6 +10,7 @@ Option:
 
 import sys
 import getopt
+import inithooks_cache
 import subprocess
 from subprocess import PIPE
 from os.path import *
@@ -61,6 +62,8 @@ def main():
             "BambooInvoice Email",
             "Enter email address for the 'admin' account.",
             "admin@example.com")
+
+    inithooks_cache.write('APP_EMAIL', email)
 
     if not domain:
         if 'd' not in locals():
