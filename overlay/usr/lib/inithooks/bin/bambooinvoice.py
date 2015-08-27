@@ -10,6 +10,7 @@ Option:
 
 import sys
 import getopt
+import inithooks_cache
 import subprocess
 from subprocess import PIPE
 from os.path import *
@@ -17,6 +18,7 @@ from os.path import *
 from dialog_wrapper import Dialog
 from mysqlconf import MySQL
 from executil import system
+
 
 def usage(s=None):
     if s:
@@ -26,6 +28,7 @@ def usage(s=None):
     sys.exit(1)
 
 DEFAULT_DOMAIN="www.example.com"
+
 
 def main():
     try:
@@ -62,6 +65,8 @@ def main():
             "Enter email address for the 'admin' account.",
             "admin@example.com")
 
+    inithooks_cache.write('APP_EMAIL', email)
+
     if not domain:
         if 'd' not in locals():
             d = Dialog('TurnKey Linux - First boot configuration')
@@ -73,6 +78,8 @@ def main():
 
     if domain == "DEFAULT":
         domain = DEFAULT_DOMAIN
+
+    inithooks_cache.write('APP_DOMAIN', domain)
 
     command = ["php", join(dirname(__file__), 'bambooinvoice_pass.php'), password]
     p = subprocess.Popen(command, stdin=PIPE, stdout=PIPE, shell=False)
